@@ -1,0 +1,64 @@
+<div class="chat-window">
+
+  <button routerLink="/config">Config</button>
+    <button  routerLink="/contatos" > Contato</button>
+  <button (click)="prepararContato()">Adicionar Contato</button>
+
+
+  <!-- Lista de conversas -->
+  <div *ngIf="conversations.length > 0" class="conversations-list">
+    <h2>Conversas</h2>
+    <ul>
+      <li *ngFor="let convo of conversations" (click)="openConversation(convo)" class="conversation-item">
+        {{ convo.nome }} ({{ convo.messages?.length || 0 }})
+      </li>
+    </ul>
+  </div>
+
+  <!-- Mensagens da conversa selecionada -->
+  <div *ngIf="selectedConversation" class="messages" #messagesContainer>
+    <div *ngFor="let msg of selectedConversation.messages"
+         [ngClass]="{'message-me': msg.isMe, 'message-them': !msg.isMe}">
+      <div class="message-content">
+        {{ msg.body }}
+        <small>{{ msg.timestamp ? (msg.timestamp | date:'shortTime') : '' }}</small>
+      </div>
+    </div>
+  </div>
+
+  <!-- Compositor de mensagem -->
+  <div class="composer-wrapper" *ngIf="selectedConversation">
+    <form class="composer" (ngSubmit)="onSendMessage()">
+      <input
+        type="text"
+        placeholder="Escreva uma mensagem..."
+        autocomplete="off"
+        aria-label="Mensagem"
+        [(ngModel)]="newMessage"
+        (input)="onInputChange()"
+        name="message"
+      />
+      <button type="submit" class="send">Enviar</button>
+    </form>
+
+    <!-- Dropdown de mensagens prontas -->
+    <ul *ngIf="mostrarProntas" class="dropdown-prontas">
+      <li *ngFor="let msg of mensagensProntasVisiveis" (click)="usarMensagemPronta(msg)">
+        {{ msg.texto }}
+      </li>
+    </ul>
+  </div>
+
+</div>
+
+<!-- Modal para adicionar contato -->
+<div *ngIf="mostraFormularioContato" class="modal-container">
+  <div class="modal-backdrop" (click)="mostraFormularioContato = false"></div>
+  <div class="add-contact">
+    <h3>Adicionar Contato</h3>
+    <input [(ngModel)]="novoNome" placeholder="Nome" name="nome" />
+    <input [(ngModel)]="novoNumero" placeholder="Número com DDD (ex: 61999999999)" name="numero" />
+    <button (click)="adicionarContato()">Salvar Contato</button>
+    <button (click)="mostraFormularioContato = false">Fechar</button>
+  </div>
+</div>

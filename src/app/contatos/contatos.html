@@ -1,0 +1,10 @@
+
+  <!-- Lista de contatos -->
+  <div *ngIf="contatos.length > 0" class="contatos-lista">
+    <h3>Contatos</h3>
+    <ul>
+      <li *ngFor="let c of contatos">
+        {{ c.nome }} - {{ c.numero }}
+      </li>
+    </ul>
+  </div>

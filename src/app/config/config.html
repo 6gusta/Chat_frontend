@@ -1,0 +1,15 @@
+<div class="config-container">
+  <h2>Mensagens Prontas</h2>
+
+  <div class="add-message">
+    <input type="text" placeholder="Digite nova mensagem" [(ngModel)]="novaMensagem"/>
+    <button (click)="adicionarMensagem()">Adicionar</button>
+  </div>
+
+  <ul class="mensagens-list">
+    <li *ngFor="let msg of mensagensProntas">
+      {{ msg.texto }}
+      <button class="remove" (click)="removerMensagem(msg)">X</button>
+    </li>
+  </ul>
+</div>
