@@ -1,6 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { Campanha } from './disparo-service';
 
 @Injectable({
   providedIn: 'root'
@@ -51,4 +52,20 @@ export class WhatsService {
   getMessages(): Observable<any[]> {
     return this.http.get<any[]>(`${this.javaApiUrl}/messages`);
   }
+
+dispararCampanha(formData: FormData, options?: any) {
+  return this.http.post('http://localhost:8080/whatsapp/agendar', formData, options);
+}
+
+listarInstancias(): Observable<string[]> {
+  return this.http.get<string[]>(`${this.javaApiUrl}/instancias`);
+}
+
+
+listarMensagensPorInstancia(instancia: string): Observable<any[]> {
+  return this.http.get<any[]>(`${this.javaApiUrl}/mensagens/${instancia}`);
+}
+
+
+
 }

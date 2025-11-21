@@ -1,0 +1,100 @@
+/* -------------------- CONTAINER -------------------- */
+.plano-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 95vh;
+  background: #f8fafc; /* mesmo fundo do chat */
+}
+
+/* -------------------- CARD -------------------- */
+.plano-card {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 35px;
+  width: 360px;
+  text-align: center;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e2e8f0;
+  animation: aparecer 0.4s ease-in-out;
+}
+
+/* -------------------- TÍTULO -------------------- */
+.plano-card h2 {
+  color: #22c55e; /* verde principal */
+  margin-bottom: 12px;
+  font-weight: 600;
+  font-size: 22px;
+}
+
+/* -------------------- DESCRIÇÃO -------------------- */
+.descricao {
+  font-size: 15px;
+  color: #475569; /* cinza leve */
+  margin-bottom: 24px;
+  line-height: 1.4;
+}
+
+/* -------------------- PREÇO -------------------- */
+.preco {
+  font-size: 36px;
+  font-weight: bold;
+  color: #16a34a;
+  margin-bottom: 30px;
+}
+
+.moeda {
+  font-size: 20px;
+  vertical-align: super;
+}
+
+.periodo {
+  font-size: 14px;
+  color: #6b7280;
+}
+
+/* -------------------- BOTÕES -------------------- */
+.btn-comprar {
+  background: #22c55e;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  padding: 10px 18px;
+  font-size: 15px;
+  cursor: pointer;
+  font-weight: 500;
+  margin-right: 10px;
+  transition: 0.3s;
+}
+
+.btn-comprar:hover {
+  background: #16a34a; /* verde escuro */
+}
+
+.btn-voltar {
+  background: #f1f5f9;
+  color: #111827;
+  border: 1px solid #cbd5e1;
+  border-radius: 10px;
+  padding: 10px 18px;
+  font-size: 15px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: 0.3s;
+}
+
+.btn-voltar:hover {
+  background: #e2e8f0;
+}
+
+/* -------------------- ANIMAÇÃO -------------------- */
+@keyframes aparecer {
+  from {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}

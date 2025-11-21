@@ -1,226 +1,274 @@
+/* -------------------- CONTAINER PRINCIPAL -------------------- */
 .chat-window {
-  max-width: 420px;
-  height: 600px;
-  overflow-y: auto;
-  padding: 10px;
-  background: #f4f7fb;
-  border-radius: 10px;
-}
-.add-contact {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background: white;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-  z-index: 10000;
-  width: 320px;
-  max-width: 90%;
-}
-
-/* Fundo escurecido */
-.modal-backdrop {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background: rgba(0,0,0,0.5);
-  z-index: 9999;
-}
-
-
-.mine {
-  background-color: #0b93f6;
-  color: white;
-  text-align: right;
-  margin-left: auto;
-  margin-bottom: 5px;
-  padding: 8px 12px;
-  border-radius: 15px;
-  max-width: 70%;
-}
-
-.other {
-  background-color: #e5e7eb;
-  color: black;
-  text-align: left;
-  margin-right: auto;
-  margin-bottom: 5px;
-  padding: 8px 12px;
-  border-radius: 15px;
-  max-width: 70%;
-}
-
-.time {
-  display: block;
-  font-size: 10px;
-  color: #666;
-  margin-top: 2px;
-}
-
-.composer {
-  display: flex;
-  margin-top: 10px;
-}
-
-.composer input {
-  flex: 1;
-  padding: 10px;
-  border-radius: 20px;
-  border: 1px solid #ccc;
-  outline: none;
-}
-
-.composer button {
-  padding: 10px 20px;
-  margin-left: 5px;
-  border-radius: 20px;
-  border: none;
-  background-color: #0b93f6;
-  color: white;
-  cursor: pointer;
-}
-.chat-window {
-  max-width: 420px;
+  max-width: 450px;
   margin: 0 auto;
-  background: #f4f7fb;
-  border-radius: 10px;
-  padding: 10px;
+  background: #f8fafc;
+  border-radius: 12px;
   display: flex;
   flex-direction: column;
-  height: 90vh;
+  height: 95vh;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+  overflow: hidden;
+  border: 1px solid #e2e8f0;
 }
 
+/* HEADER */
+.header {
+  background: #22c55e; /* verde */
+  color: white;
+  font-size: 18px;
+  font-weight: 600;
+  padding: 14px;
+  text-align: center;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+/* TOP BUTTONS */
+.top-buttons {
+  display: flex;
+  gap: 6px;
+  padding: 10px;
+  background: #fff;
+  border-bottom: 1px solid #dbe2ea;
+}
+
+.top-buttons button {
+  flex: 1;
+  padding: 8px;
+  border-radius: 8px;
+  border: 1px solid #cfd6de;
+  background: #f0fdf4; /* verde suave */
+  cursor: pointer;
+  font-weight: 500;
+  transition: .2s;
+}
+
+.top-buttons button:hover {
+  background: #22c55e;
+  color: white;
+  border-color: #22c55e;
+}
 
 .conversations-list {
-  background: #fff;
-  border: 1px solid #ccc;
-  border-radius: 10px;
-  margin-bottom: 10px;
   padding: 10px;
+  border-bottom: 1px solid #dbe2ea;
+  background: #fff;
+
+  max-height: 30vh; /* ou outro valor que faça sentido */
+  overflow-y: auto;  /* ativa scroll quando a lista passar do limite */
 }
+
 
 .conversations-list ul {
-  list-style: none;
+  margin: 0;
   padding: 0;
+  list-style: none;
 }
 
-.conversations-list li {
-  padding: 5px 10px;
+.conversation-item {
+  padding: 10px;
+  border-radius: 10px;
+  transition: .2s;
   cursor: pointer;
-  border-radius: 5px;
 }
 
-.conversations-list li:hover {
-  background: #e5e7eb;
+.conversation-item:hover {
+  background: #dcfce7; /* verde muito claro */
 }
 
+/* MENSAGENS */
 .messages {
   flex: 1;
-  max-height: 100%;
   overflow-y: auto;
+  padding: 12px;
   display: flex;
   flex-direction: column;
-  padding: 5px;
   gap: 6px;
 }
 
-/* suas bolhas de mensagens continuam iguais */
 .message-me {
   align-self: flex-end;
-  background-color: #0b93f6;
+  background: #22c55e;
   color: white;
-  text-align: right;
-  padding: 8px 12px;
-  border-radius: 15px 15px 0 15px;
-  max-width: 70%;
+  padding: 10px 14px;
+  border-radius: 18px 18px 0 18px;
+  max-width: 75%;
 }
 
 .message-them {
   align-self: flex-start;
-  background-color: #e5e7eb;
-  color: black;
-  text-align: left;
-  padding: 8px 12px;
-  border-radius: 15px 15px 15px 0;
-  max-width: 70%;
+  background: #e5e7eb;
+  color: #111;
+  padding: 10px 14px;
+  border-radius: 18px 18px 18px 0;
+  max-width: 75%;
 }
 
 .message-content small {
   display: block;
   font-size: 10px;
-  color: #666;
+  opacity: .7;
   margin-top: 2px;
 }
 
-
-.composer-wrapper {
-  position: relative;
-}
-
+/* COMPOSER */
 .composer {
   display: flex;
-  margin-top: 5px;
+  padding: 10px;
+  background: #fff;
+  border-top: 1px solid #dbe2ea;
 }
 
 .composer input {
   flex: 1;
-  padding: 10px;
-  border-radius: 20px;
-  border: 1px solid #ccc;
+  padding: 12px;
+  border-radius: 22px;
+  border: 1px solid #cfd6de;
   outline: none;
 }
 
-.composer button.send {
-  padding: 10px 20px;
-  margin-left: 5px;
-  border-radius: 20px;
+.composer button {
+  margin-left: 6px;
+  padding: 12px 18px;
+  border-radius: 50%;
   border: none;
-  background-color: #0b93f6;
+  background: #22c55e;
+  color: white;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+/* -------------------- MODAIS -------------------- */
+
+/* BACKDROP */
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.35);
+  z-index: 999;
+}
+
+/* MODAL BASE */
+.modal {
+  display: none; /* oculto por padrão */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1000;
+}
+
+.modal.show {
+  display: block;
+}
+
+/* CONTEÚDO MODAL */
+.modal-content,
+.add-contact {
+  background: #f0fdf4; /* verde suave */
+  padding: 25px;
+  border-radius: 16px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1001;
+  width: 380px;
+  max-width: 90%;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.25);
+}
+
+/* BOTÃO FECHAR */
+.modal-content .close {
+  float: right;
+  font-size: 26px;
+  font-weight: 600;
+  cursor: pointer;
+  color: #22c55e;
+}
+
+/* INPUTS MODAIS */
+.add-contact input,
+.modal-content input,
+.modal-content textarea {
+  width: 100%;
+  padding: 10px;
+  margin-top: 8px;
+  margin-bottom: 12px;
+  border-radius: 8px;
+  border: 1px solid #cfd6de;
+  outline: none;
+}
+
+/* BOTÕES DENTRO DO MODAL */
+.modal-buttons,
+.modal-content button {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.modal-buttons button,
+.modal-content button {
+  padding: 10px 14px;
+  border-radius: 10px;
+  border: none;
+  background: #22c55e;
   color: white;
   cursor: pointer;
+  font-weight: 500;
+  transition: 0.2s;
 }
 
-.dropdown-prontas {
-  position: absolute;
-  top: 45px;
-  left: 0;
-  right: 0;
-  background: #fff;
+.modal-buttons button:hover,
+.modal-content button:hover {
+  background: #16a34a; /* verde escuro ao passar */
+}
+
+/* LISTA DENTRO DO MODAL */
+.modal-content ul {
+  padding-left: 15px;
+      overflow-y: auto;  /* ativa scroll vertical */
+}
+
+.modal-content ul li {
+  margin-bottom: 6px;
+  display: flex;
+  justify-content: space-between;
+
+  align-items: center;
+}
+
+.instance-select {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.instance-select select {
+  flex: 1;
+  padding: 5px 8px;
+  border-radius: 6px;
   border: 1px solid #ccc;
-  border-radius: 10px;
-  max-height: 150px;
-  overflow-y: auto;
-  z-index: 10;
-  list-style: none;
-  padding: 5px 0;
-  margin: 0;
 }
 
-.dropdown-prontas li {
-  padding: 5px 10px;
+.add-instance-btn {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 6px 10px;
   cursor: pointer;
+  transition: 0.2s;
 }
 
-.dropdown-prontas li:hover {
-  background: #f0f0f0;
-}
-.add-contact {
-  margin: 10px 0;
-  padding: 10px;
-  border-top: 1px solid #ccc;
+.add-instance-btn:hover {
+  background-color: #45a049;
 }
 
-.add-contact input {
-  display: block;
-  margin-bottom: 5px;
-  padding: 5px;
-  width: 100%;
-}
-
-.add-contact button {
-  padding: 5px 10px;
-}

@@ -1,9 +1,28 @@
 <div class="chat-window">
 
-  <button routerLink="/config">Config</button>
-    <button  routerLink="/contatos" > Contato</button>
-  <button (click)="prepararContato()">Adicionar Contato</button>
+<!-- Seletor de instância -->
+<div class="instance-select">
+  <label for="instancia">Instância:</label>
+  <select id="instancia" [(ngModel)]="instanciaSelecionada" (change)="trocaInstancia()">
+    <option *ngFor="let inst of instancias" [value]="inst.name">
+      {{ inst.name }} - ({{ inst.number }})
+    </option>
+  </select>
+  <button (click)="adicionarInstancia()" class="add-instance-btn">➕</button>
+</div>
 
+
+  <div class="header">
+    Painel WhatsApp
+  </div>
+
+  <!-- Top Buttons -->
+  <div class="top-buttons">
+    <button routerLink="/config">⚙️ Config</button>
+    <button (click)="prepararCampanhateste()">📢 Campanha</button>
+    <button routerLink="/contatos">👥 Contatos</button>
+    <button (click)="prepararContato()">➕ Contato</button>
+  </div>
 
   <!-- Lista de conversas -->
   <div *ngIf="conversations.length > 0" class="conversations-list">
@@ -15,7 +34,7 @@
     </ul>
   </div>
 
-  <!-- Mensagens da conversa selecionada -->
+  <!-- Mensagens -->
   <div *ngIf="selectedConversation" class="messages" #messagesContainer>
     <div *ngFor="let msg of selectedConversation.messages"
          [ngClass]="{'message-me': msg.isMe, 'message-them': !msg.isMe}">
@@ -26,39 +45,77 @@
     </div>
   </div>
 
-  <!-- Compositor de mensagem -->
+  <!-- Caixa de mensagem -->
   <div class="composer-wrapper" *ngIf="selectedConversation">
     <form class="composer" (ngSubmit)="onSendMessage()">
       <input
         type="text"
-        placeholder="Escreva uma mensagem..."
+        placeholder="Digite uma mensagem..."
         autocomplete="off"
-        aria-label="Mensagem"
         [(ngModel)]="newMessage"
-        (input)="onInputChange()"
         name="message"
       />
-      <button type="submit" class="send">Enviar</button>
+      <button type="submit" class="send">➤</button>
     </form>
 
-    <!-- Dropdown de mensagens prontas -->
-    <ul *ngIf="mostrarProntas" class="dropdown-prontas">
-      <li *ngFor="let msg of mensagensProntasVisiveis" (click)="usarMensagemPronta(msg)">
-        {{ msg.texto }}
-      </li>
-    </ul>
+    <app-msgeprontafilhos
+      *ngIf="newMessage.startsWith('/')"
+      [mensagens]="mensagensProntas"
+      [filtro]="newMessage.slice(1)"
+      (selecionar)="onSelecionar($event)">
+    </app-msgeprontafilhos>
   </div>
 
-</div>
+</div> <!-- ← fecha aqui o .chat-window -->
 
-<!-- Modal para adicionar contato -->
-<div *ngIf="mostraFormularioContato" class="modal-container">
+<!-- Modal Adicionar Contato -->
+<div *ngIf="mostraFormularioContato" class="modal show">
   <div class="modal-backdrop" (click)="mostraFormularioContato = false"></div>
   <div class="add-contact">
     <h3>Adicionar Contato</h3>
     <input [(ngModel)]="novoNome" placeholder="Nome" name="nome" />
     <input [(ngModel)]="novoNumero" placeholder="Número com DDD (ex: 61999999999)" name="numero" />
-    <button (click)="adicionarContato()">Salvar Contato</button>
-    <button (click)="mostraFormularioContato = false">Fechar</button>
+    <div class="modal-buttons">
+      <button (click)="adicionarContato()">Salvar</button>
+      <button (click)="mostraFormularioContato = false">Fechar</button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Campanha -->
+<div class="modal" [class.show]="modalAberto">
+  <div class="modal-backdrop" (click)="fecharModal()"></div>
+  <div class="modal-content">
+    <span class="close" (click)="fecharModal()">&times;</span>
+    <h2>Definir mensagem, horário e contato</h2>
+    <form (ngSubmit)="dispararCampanha()">
+
+      <label for="mensagem">Mensagem:</label>
+      <textarea id="mensagem" [(ngModel)]="mensagemcampanha" name="mensagem" required></textarea>
+
+      <label for="horario">Horário:</label>
+      <input type="datetime-local" id="horario" [(ngModel)]="horario" name="horario" required>
+
+      <label>Adicionar número:</label>
+      <div class="add-number">
+        <input type="text" [(ngModel)]="novoNumeroCampanha" name="novoNumeroCampanha" placeholder="Ex: 61999999999" />
+        <button type="button" (click)="adicionarNumero()">Adicionar</button>
+      </div>
+
+      <label>Importar lista de contatos:</label>
+      <input type="file" id="arquivoContatos" (change)="lerArquivoContatos($event)" accept=".csv,.txt" />
+
+      <ul>
+        <li *ngFor="let num of numerosCampanha; let i = index">
+          {{ num }}
+          <button type="button" (click)="removerNumero(i)">Remover</button>
+        </li>
+      </ul>
+
+      <label>Imagem (opcional):</label>
+      <input type="file" (change)="onImagemSelecionada($event)" accept="image/*">
+
+      <button type="submit">Confirmar</button>
+    </form>
   </div>
 </div>

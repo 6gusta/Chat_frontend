@@ -1,0 +1,5 @@
+<li *ngFor="let msg of mensagens | filtrarProntas:filtro"
+    (click)="selecionar.emit(msg)"
+    style="border:1px solid red; padding: 4px; margin-bottom: 2px; background: #f0f0f0;">
+  {{ msg.texto }}
+</li>
