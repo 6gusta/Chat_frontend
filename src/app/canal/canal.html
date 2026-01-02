@@ -1,0 +1,77 @@
+<main class="dashboard-container">
+
+  <header class="dashboard-header">
+    <h1>📊 Dashboard de Instâncias</h1>
+    <p class="sub">Gerencie e monitore suas conexões WhatsApp</p>
+  </header>
+
+  <div class="top-actions">
+    <button class="btn-create" (click)="sincronizarInstanciasBanco()">
+      🔄 Sincronizar Instâncias
+    </button>
+  </div>
+
+  <!-- LISTA DE INSTÂNCIAS -->
+  <section class="instances-grid" *ngIf="instancias.length > 0; else semInstancias">
+
+    <div class="instance-card" *ngFor="let inst of instancias; trackBy: trackByNome">
+
+      <!-- CABEÇALHO DA INSTÂNCIA -->
+      <div class="instance-header">
+        <h2>{{ inst.nome }}</h2>
+
+        <span class="badge"
+              [ngClass]="{
+                'badge-online': inst.status === 'CONNECTED',
+                'badge-offline': inst.status === 'DISCONNECTED',
+                'badge-qr': inst.status === 'OFFLINE',
+                'badge-error': inst.status === 'ERROR'
+              }">
+          ● {{ traduzStatus(inst.status) }}
+        </span>
+      </div>
+
+      <!-- QR CODE -->
+      <div class="qr-section" *ngIf="inst.qr; else semQr">
+        <p class="qr-title">Leia o QR Code para conectar</p>
+        <img [src]="inst.qr" alt="QR Code" class="qr-image" />
+      </div>
+
+      <ng-template #semQr>
+        <p class="qr-placeholder">
+          Nenhum QR Code disponível
+        </p>
+      </ng-template>
+
+      <!-- AÇÕES -->
+      <div class="instance-actions">
+        <button class="btn action-primary"
+                (click)="gerarQr(inst.nome)">
+          Gerar QR
+        </button>
+
+        <button class="btn action-normal"
+                (click)="atualizarStatus(inst)">
+          Recarregar
+        </button>
+
+        <button class="btn action-danger"
+                [disabled]="inst.status !== 'CONNECTED'">
+          Desconectar
+        </button>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ESTADO VAZIO -->
+  <ng-template #semInstancias>
+    <div class="empty-state">
+      <p>⚠️ Nenhuma instância encontrada.</p>
+      <button class="btn-create" (click)="sincronizarInstanciasBanco()">
+        Tentar novamente
+      </button>
+    </div>
+  </ng-template>
+
+</main>

@@ -1,0 +1,213 @@
+/* ------------------------------ */
+/*   FUNDO + LAYOUT PRINCIPAL     */
+/* ------------------------------ */
+
+.dashboard-container {
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 18px;
+  min-height: 100vh;
+
+  background: linear-gradient(135deg, #ecfdf5, #f0f9ff);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* ------------------------------ */
+/*      CABEÇALHO DO DASHBOARD    */
+/* ------------------------------ */
+
+.dashboard-header {
+  text-align: center;
+}
+
+.dashboard-header h1 {
+  font-size: 22px;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.dashboard-header .sub {
+  font-size: 13px;
+  color: #475569;
+}
+
+/* ------------------------------ */
+/*     BOTÃO DE NOVA INSTÂNCIA    */
+/* ------------------------------ */
+
+.top-actions {
+  display: flex;
+  justify-content: center;
+}
+
+.btn-create {
+  padding: 10px 18px;
+  border-radius: 12px;
+  border: none;
+  background: #10b981;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: .25s;
+}
+
+.btn-create:hover {
+  background: #059669;
+  transform: scale(1.03);
+}
+
+/* ------------------------------ */
+/*           INSTANCE CARD        */
+/* ------------------------------ */
+
+.instance-card {
+  background: rgba(255,255,255,0.7);
+  backdrop-filter: blur(12px);
+  border: 1px solid #d1d5db;
+  border-radius: 18px;
+  padding: 20px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+  animation: fadeIn .4s ease;
+}
+
+.instance-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.instance-header h2 {
+  font-size: 18px;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+/* ------------------------------ */
+/*             BADGES             */
+/* ------------------------------ */
+
+.badge {
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.badge-online {
+  background: #dcfce7;
+  color: #15803d;
+  border: 1px solid #86efac;
+}
+
+/* ------------------------------ */
+/*           QR CODE AREA         */
+/* ------------------------------ */
+
+.qr-section {
+  margin-top: 15px;
+  padding: 16px;
+  background: #f0fdf4;
+  border-radius: 14px;
+  border: 1px solid #bbf7d0;
+  text-align: center;
+}
+
+.qr-title {
+  font-size: 14px;
+  color: #14532d;
+  margin-bottom: 10px;
+}
+
+.qr-image {
+  width: 200px;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+  transition: .2s;
+}
+
+.qr-image:hover {
+  transform: scale(1.04);
+}
+
+/* ------------------------------ */
+/*           BOTÕES AÇÕES         */
+/* ------------------------------ */
+
+.instance-actions {
+  margin-top: 18px;
+  display: flex;
+  gap: 10px;
+}
+
+.btn {
+  flex: 1;
+  padding: 10px;
+  border-radius: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  transition: .25s;
+}
+
+.action-primary {
+  background: #10b981;
+  color: white;
+}
+
+.action-primary:hover {
+  background: #059669;
+  transform: translateY(-2px);
+}
+
+.action-normal {
+  background: #e2e8f0;
+  color: #1e293b;
+}
+
+.action-normal:hover {
+  background: #cbd5e1;
+}
+
+.action-danger {
+  background: #ef4444;
+  color: white;
+}
+
+.action-danger:hover {
+  background: #dc2626;
+}
+
+/* ------------------------------ */
+/*      SEM INSTÂNCIA ATUAL       */
+/* ------------------------------ */
+
+.no-instance {
+  padding: 20px;
+  text-align: center;
+  color: #475569;
+  background: #f1f5f9;
+  border-radius: 14px;
+}
+
+/* ------------------------------ */
+/*            ANIMAÇÃO            */
+/* ------------------------------ */
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.badge {
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-weight: bold;
+  color: white;
+}
+
+.badge-online { background-color: green; }
+.badge-offline { background-color: gray; }
+.badge-qr { background-color: orange; }
+.badge-connecting { background-color: blue; }
+.badge-error { background-color: red; }

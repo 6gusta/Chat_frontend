@@ -22,6 +22,7 @@
     <button (click)="prepararCampanhateste()">📢 Campanha</button>
     <button routerLink="/contatos">👥 Contatos</button>
     <button (click)="prepararContato()">➕ Contato</button>
+    <button routerLink="/canal">Canais</button>
   </div>
 
   <!-- Lista de conversas -->
@@ -73,14 +74,20 @@
   <div class="modal-backdrop" (click)="mostraFormularioContato = false"></div>
   <div class="add-contact">
     <h3>Adicionar Contato</h3>
+
+    <!-- MOSTRAR INSTÂNCIA SELECIONADA -->
+    <p><strong>Instância:</strong> {{ instanciaSelecionada }}</p>
+
     <input [(ngModel)]="novoNome" placeholder="Nome" name="nome" />
     <input [(ngModel)]="novoNumero" placeholder="Número com DDD (ex: 61999999999)" name="numero" />
+
     <div class="modal-buttons">
       <button (click)="adicionarContato()">Salvar</button>
       <button (click)="mostraFormularioContato = false">Fechar</button>
     </div>
   </div>
 </div>
+
 
 <!-- Modal Campanha -->
 <div class="modal" [class.show]="modalAberto">

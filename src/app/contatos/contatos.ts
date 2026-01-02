@@ -1,35 +1,58 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { Contato } from '../services/contato'; // Ajuste o caminho pro seu serviço
+import { FormsModule } from '@angular/forms';
+import { Contato } from '../services/contato';
 
 @Component({
   selector: 'app-contatos',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './contatos.html',
   styleUrls: ['./contatos.css']
 })
 export class Contatos {
+
   contatos: any[] = [];
+  instanciaSelecionada: string = 'todos';
 
   constructor(private contatoService: Contato) {}
 
-  async ngOnInit() {
-    await this.loadContatos();
+  ngOnInit() {
+    this.buscarContatos();
+  }
+buscarContatos() {
+
+  // 👉 Se for TODOS ou vazio = lista geral
+  if (!this.instanciaSelecionada || 
+      this.instanciaSelecionada.trim() === '' || 
+      this.instanciaSelecionada === 'todos') {
+
+    this.contatoService.listarContatos().subscribe({
+      next: (dados) => {
+        this.contatos = dados;
+      },
+      error: err => {
+        console.error('Erro ao listar todos os contatos:', err);
+        this.contatos = [];
+      }
+    });
+
+    return;
   }
 
-  loadContatos(): Promise<void> {
-    return new Promise((resolve, reject) => {
-      this.contatoService.listarContatos().subscribe({
-        next: (res: any[]) => {
-          this.contatos = res; // Já assume que 'res' é array com nome e numero
-          resolve();
-        },
-        error: (err: any) => {
-          console.error('Erro ao carregar contatos:', err);
-          reject(err);
-        }
-      });
+  // 👉 Caso tenha instância específica
+  const instancia = this.instanciaSelecionada.trim();
+
+  this.contatoService.listarContatosPorInstancia(instancia)
+    .subscribe({
+      next: (dados) => {
+        this.contatos = dados;
+      },
+      error: err => {
+        console.error('Erro ao buscar contatos:', err);
+        this.contatos = [];
+      }
     });
-  }
+}
+
 }
