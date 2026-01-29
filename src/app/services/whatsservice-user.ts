@@ -1,14 +1,14 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Campanha } from './disparo-service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class WhatsService {
+export class WhatsserviceUser {
 
-  private javaApiUrl = 'http://localhost:8080/admin';
+  
+  private javaApiUrl = 'http://localhost:8080/Usuario';
 
   constructor(private http: HttpClient) {}
 
@@ -66,6 +66,5 @@ listarMensagensPorInstancia(instancia: string): Observable<any[]> {
   return this.http.get<any[]>(`${this.javaApiUrl}/mensagens/${instancia}`);
 }
 
-
-
+  
 }

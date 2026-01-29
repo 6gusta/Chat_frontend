@@ -1,0 +1,99 @@
+/* CONTAINER PRINCIPAL */
+.auth-window {
+  max-width: 420px;
+  margin: 40px auto;
+  background: #f8fafc;
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+  overflow: hidden;
+  border: 1px solid #e2e8f0;
+}
+
+/* HEADER */
+.header {
+  background: #22c55e;
+  color: white;
+  font-size: 18px;
+  font-weight: 600;
+  padding: 16px;
+  text-align: center;
+}
+
+/* CONTEÚDO */
+.auth-content {
+  padding: 22px;
+}
+
+/* FORM */
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.form-group label {
+  font-size: 14px;
+  font-weight: 500;
+  color: #111;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 12px;
+  margin-top: 6px;
+  border-radius: 10px;
+  border: 1px solid #cfd6de;
+  outline: none;
+  font-size: 14px;
+}
+
+.form-group input:focus {
+  border-color: #22c55e;
+}
+
+/* TERMOS / LEMBRE-ME */
+.terms {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+}
+
+.terms a {
+  color: #22c55e;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+/* BOTÃO PRINCIPAL */
+.primary-btn {
+  margin-top: 10px;
+  padding: 14px;
+  border-radius: 14px;
+  border: none;
+  background: #22c55e;
+  color: white;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.primary-btn:hover {
+  background: #16a34a;
+}
+
+/* LINK DE REDIRECIONAMENTO */
+.redirect {
+  text-align: center;
+  font-size: 13px;
+  margin-top: 12px;
+}
+
+.redirect a {
+  color: #22c55e;
+  font-weight: 600;
+  text-decoration: none;
+}

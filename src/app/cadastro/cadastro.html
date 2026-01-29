@@ -1,0 +1,56 @@
+<form [formGroup]="cadastroForm" (ngSubmit)="cadastrar()" class="auth-form">
+  
+  <!-- NOME -->
+  <div class="form-group">
+    <label>Nome completo</label>
+    <input formControlName="nome" type="text" placeholder="Seu nome completo" />
+  </div>
+
+  <!-- EMAIL -->
+  <div class="form-group">
+    <label>Email</label>
+    <input formControlName="email" type="email" placeholder="seu@email.com" />
+  </div>
+
+  <!-- SENHA -->
+  <div class="form-group">
+    <label>Senha</label>
+    <input formControlName="senha" type="password" placeholder="••••••••" />
+  </div>
+
+  <!-- CONFIRMAR SENHA -->
+  <div class="form-group">
+    <label>Confirmar senha</label>
+    <input formControlName="confirmarSenha" type="password" placeholder="••••••••" />
+  </div>
+
+  <!-- EMPRESA / PROJETO -->
+  <div class="form-group">
+    <label>Nome da empresa / projeto <small>(opcional)</small></label>
+    <input formControlName="empresa" type="text" placeholder="Minha empresa" />
+  </div>
+
+  <!-- ROLE (TIPO DE USUÁRIO) -->
+  <div class="form-group">
+    <label>Tipo de usuário</label>
+    <select formControlName="role">
+      <option *ngFor="let r of roles" [value]="r">{{ r }}</option>
+    </select>
+  </div>
+
+  <!-- MENSAGEM DE ERRO -->
+  <div *ngIf="errorMessage" style="color:red; font-size:13px; margin-bottom:5px;">
+    {{ errorMessage }}
+  </div>
+
+  <!-- MENSAGEM DE SUCESSO -->
+  <div *ngIf="successMessage" style="color:green; font-size:13px; margin-bottom:5px;">
+    {{ successMessage }}
+  </div>
+
+  <!-- BOTÃO -->
+  <button type="submit" class="primary-btn" [disabled]="loading">
+    {{ loading ? 'Cadastrando...' : 'Criar conta' }}
+  </button>
+
+</form>

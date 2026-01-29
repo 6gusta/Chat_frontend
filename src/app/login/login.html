@@ -1,0 +1,43 @@
+<div class="auth-window">
+  <!-- HEADER -->
+  <div class="header">
+    Login
+  </div>
+
+  <!-- CONTEÚDO -->
+  <div class="auth-content">
+    <form class="auth-form" (ngSubmit)="onLogin()" #loginForm="ngForm">
+      
+      <!-- NOME -->
+      <div class="form-group">
+        <label for="nome">Nome</label>
+        <input type="text" id="nome" name="nome" [(ngModel)]="nome" placeholder="Digite seu nome" required>
+      </div>
+
+      <!-- SENHA -->
+      <div class="form-group">
+        <label for="senha">Senha</label>
+        <input type="password" id="senha" name="senha" [(ngModel)]="senha" placeholder="Digite sua senha" required>
+      </div>
+
+      <!-- TERMOS / LEMBRE-ME -->
+      <div class="terms">
+        <input type="checkbox" id="remember">
+        <label for="remember">Lembrar-me</label>
+      </div>
+
+      <!-- MENSAGEM DE ERRO -->
+      <div *ngIf="erro" style="color:red; margin-bottom:10px;">
+        {{ erro }}
+      </div>
+
+      <!-- BOTÃO -->
+      <button type="submit" class="primary-btn" [disabled]="loginForm.invalid">Entrar</button>
+    </form>
+
+    <!-- LINK DE REDIRECIONAMENTO -->
+    <div class="redirect">
+      Não tem conta? <a routerLink="/register">Cadastre-se</a>
+    </div>
+  </div>
+</div>
