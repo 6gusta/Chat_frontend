@@ -9,6 +9,7 @@ import { Login } from './login/login';
 import { Component } from '@angular/core';
 import { HomeAdmin } from './home-admin/home-admin';
 import { LoginUserComponent } from './login-user/login-user';
+import { Perfil } from './perfil/perfil';
 
 
 export const routes: Routes = [
@@ -22,6 +23,7 @@ export const routes: Routes = [
     {path: 'cadastro', component: Cadastro},
     {path: 'chat', component: Chats},
     {path:"homeAdmin", component: HomeAdmin},
-    {path: "loginuser", component: LoginUserComponent}
+    {path: "loginuser", component: LoginUserComponent},
+    {path: "me", component: Perfil}
 ];
 

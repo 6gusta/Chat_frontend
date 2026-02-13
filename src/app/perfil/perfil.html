@@ -1,0 +1,39 @@
+<div class="perfil-wrapper" *ngIf="conta">
+
+  <div class="perfil-card">
+
+    <div class="perfil-header">
+      <div class="avatar">
+        {{ conta.nome.charAt(0) }}
+      </div>
+      <div>
+        <h2>{{ conta.nome }}</h2>
+        <span class="role-badge">{{ conta.role }}</span>
+      </div>
+    </div>
+
+    <div class="perfil-info">
+      <div class="info-item">
+        <label>Email</label>
+        <p>{{ conta.email }}</p>
+      </div>
+
+      <div class="info-item">
+        <label>Empresa</label>
+        <p>{{ conta.empresa }}</p>
+      </div>
+
+      <div class="info-item">
+        <label>ID</label>
+        <p>#{{ conta.idCadastro }}</p>
+      </div>
+    </div>
+
+    <div class="perfil-actions">
+      <button class="btn-primary">Editar Perfil</button>
+      <button class="btn-danger">Sair</button>
+    </div>
+
+  </div>
+
+</div>
