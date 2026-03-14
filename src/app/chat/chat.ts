@@ -129,7 +129,11 @@ carregarMensagensProntas() {
   });
 }
 
-
+private getTokenHeader() {
+  const token = localStorage.getItem('token');
+  if (!token) return {};
+  return { headers: { Authorization: `Bearer ${token}` } };
+}
   loadContatos(): Promise<void> {
     return new Promise((resolve, reject) => {
       this.contato.listarContatos().subscribe({
@@ -179,15 +183,17 @@ carregarMensagensProntas() {
 
     const instance = 'T2';
 
-    this.whatsService
-      .sendMessage(instance, this.recipient, this.newMessage, this.meNumber)
-      .subscribe({
-        next: resp => console.log('Mensagem enviada:', resp),
-        error: err => console.error('Erro ao enviar:', err)
-      });
+   const headers = this.getTokenHeader();
 
-    this.newMessage = '';
-    this.scrollToBottom();
+this.whatsService
+  .sendMessage(instance, this.recipient, this.newMessage, this.meNumber)
+  .subscribe({
+    next: resp => console.log('Mensagem enviada:', resp),
+    error: err => console.error('Erro ao enviar:', err)
+  });
+
+this.newMessage = '';
+this.scrollToBottom();
   }
 
   scrollToBottom() {

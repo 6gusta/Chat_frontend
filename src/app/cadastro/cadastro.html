@@ -1,56 +1,99 @@
+<!-- FORMULÁRIO DE CADASTRO - GUIADO COM CABEÇALHO -->
 <form [formGroup]="cadastroForm" (ngSubmit)="cadastrar()" class="auth-form">
+
+  <!-- CABEÇALHO -->
+  <div class="form-header">
+    <h2>Cadastre-se para usar nossa plataforma</h2>
+    <p>Preencha os campos abaixo para criar sua conta e começar a usar nossos serviços.</p>
+  </div>
   
-  <!-- NOME -->
+  <!-- NOME COMPLETO -->
   <div class="form-group">
-    <label>Nome completo</label>
-    <input formControlName="nome" type="text" placeholder="Seu nome completo" />
+    <label for="nome">Nome completo</label>
+    <input 
+      id="nome"
+      formControlName="nome" 
+      type="text" 
+      placeholder="Ex: Luiz Gustavo Pereira" 
+    />
+    <small class="helper-text">Digite seu nome completo para que possamos identificá-lo.</small>
   </div>
 
   <!-- EMAIL -->
   <div class="form-group">
-    <label>Email</label>
-    <input formControlName="email" type="email" placeholder="seu@email.com" />
+    <label for="email">Email</label>
+    <input 
+      id="email"
+      formControlName="email" 
+      type="email" 
+      placeholder="Ex: seu@email.com" 
+    />
+    <small class="helper-text">Este email será usado para login e recuperação de senha.</small>
   </div>
 
   <!-- SENHA -->
   <div class="form-group">
-    <label>Senha</label>
-    <input formControlName="senha" type="password" placeholder="••••••••" />
+    <label for="senha">Senha</label>
+    <input 
+      id="senha"
+      formControlName="senha" 
+      type="password" 
+      placeholder="••••••••" 
+    />
+    <small class="helper-text">Use no mínimo 6 caracteres, incluindo letras e números.</small>
   </div>
 
   <!-- CONFIRMAR SENHA -->
   <div class="form-group">
-    <label>Confirmar senha</label>
-    <input formControlName="confirmarSenha" type="password" placeholder="••••••••" />
+    <label for="confirmarSenha">Confirmar senha</label>
+    <input 
+      id="confirmarSenha"
+      formControlName="confirmarSenha" 
+      type="password" 
+      placeholder="••••••••" 
+    />
+    <small class="helper-text">Digite novamente a senha para confirmação.</small>
   </div>
 
-  <!-- EMPRESA / PROJETO -->
+  <!-- EMPRESA / PROJETO (OPCIONAL) -->
   <div class="form-group">
-    <label>Nome da empresa / projeto <small>(opcional)</small></label>
-    <input formControlName="empresa" type="text" placeholder="Minha empresa" />
+    <label for="empresa">Empresa / Projeto <small>(opcional)</small></label>
+    <input 
+      id="empresa"
+      formControlName="empresa" 
+      type="text" 
+      placeholder="Ex: Minha Empresa ou Projeto" 
+    />
+    <small class="helper-text">Se quiser, adicione sua empresa ou projeto.</small>
   </div>
 
-  <!-- ROLE (TIPO DE USUÁRIO) -->
+  <!-- TIPO DE USUÁRIO -->
   <div class="form-group">
-    <label>Tipo de usuário</label>
-    <select formControlName="role">
+    <label for="role">Tipo de usuário</label>
+    <select id="role" formControlName="role">
       <option *ngFor="let r of roles" [value]="r">{{ r }}</option>
     </select>
+    <small class="helper-text">Escolha seu perfil dentro do sistema.</small>
   </div>
 
   <!-- MENSAGEM DE ERRO -->
-  <div *ngIf="errorMessage" style="color:red; font-size:13px; margin-bottom:5px;">
+  <div *ngIf="errorMessage" class="feedback error">
     {{ errorMessage }}
   </div>
 
   <!-- MENSAGEM DE SUCESSO -->
-  <div *ngIf="successMessage" style="color:green; font-size:13px; margin-bottom:5px;">
+  <div *ngIf="successMessage" class="feedback success">
     {{ successMessage }}
   </div>
 
-  <!-- BOTÃO -->
+  <!-- BOTÃO DE SUBMISSÃO -->
   <button type="submit" class="primary-btn" [disabled]="loading">
     {{ loading ? 'Cadastrando...' : 'Criar conta' }}
   </button>
+
+  <!-- LINK DE LOGIN -->
+  <p class="redirect">
+    Já possui conta? <a routerLink="/login">Clique aqui para entrar</a>
+  </p>
 
 </form>

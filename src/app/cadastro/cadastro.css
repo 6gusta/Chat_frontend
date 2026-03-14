@@ -1,75 +1,115 @@
-/* CONTAINER PRINCIPAL */
-.auth-window {
-  max-width: 420px;
-  margin: 0 auto;
-  background: #f8fafc;
-  border-radius: 16px;
-  display: flex;
-  flex-direction: column;
-  height: auto;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.15);
-  overflow: hidden;
-  border: 1px solid #e2e8f0;
+/* RESET */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
 
-/* HEADER (reaproveita padrão) */
-.header {
-  background: #22c55e;
-  color: white;
-  font-size: 18px;
-  font-weight: 600;
-  padding: 16px;
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f1f5f9;
+  padding: 20px;
+  font-family: 'Inter', sans-serif;
+}
+
+/* CARD */
+.auth-window {
+  width: 100%;
+  max-width: 620px;
+  padding: 30px 28px;
+  background: #ffffff;
+  border-radius: 18px;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+  border: 1px solid #e2e8f0;
+  display: flex;
+  flex-direction: column;
+}
+
+/* CABEÇALHO */
+.auth-header h2 {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 700;
   text-align: center;
 }
 
-/* CONTEÚDO */
-.auth-content {
-  padding: 22px;
+.auth-header p {
+  font-size: 14px;
+  color: #64748b;
+  text-align: center;
+  margin: 6px 0 20px 0;
 }
 
 /* FORM */
 .auth-form {
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 18px;
+  width: 50%;
+  margin-left:300px;
+}
+
+/* CAMPOS */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
 }
 
 .form-group label {
   font-size: 14px;
   font-weight: 500;
-  color: #111;
+  margin-bottom: 6px;
 }
 
-.form-group input {
+.form-group input,
+.form-group select {
   width: 100%;
-  padding: 12px;
-  margin-top: 6px;
-  border-radius: 10px;
+  padding: 12px 14px;
+  border-radius: 12px;
   border: 1px solid #cfd6de;
-  outline: none;
   font-size: 14px;
+  transition: 0.2s;
 }
 
-.form-group input:focus {
+.form-group input:focus,
+.form-group select:focus {
   border-color: #22c55e;
+  box-shadow: 0 0 0 3px rgba(34,197,94,0.15);
 }
 
-/* TERMOS */
-.terms {
-  display: flex;
-  align-items: center;
-  gap: 8px;
+/* HELPER TEXT */
+.helper-text {
+  font-size: 12px;
+  color: #64748b;
+  margin-top: 4px;
+}
+
+/* MENSAGENS */
+.message {
   font-size: 13px;
+  text-align: center;
+  padding: 6px 10px;
+  border-radius: 8px;
 }
 
-.terms a {
-  color: #22c55e;
-  text-decoration: none;
-  font-weight: 500;
+.message.error {
+  background-color: #fee2e2;
+  color: #b91c1c;
+}
+
+.message.success {
+  background-color: #dcfce7;
+  color: #166534;
 }
 
 /* BOTÃO */
 .primary-btn {
+  width: 100%;
   margin-top: 10px;
   padding: 14px;
   border-radius: 14px;
@@ -90,6 +130,7 @@
 .redirect {
   text-align: center;
   font-size: 13px;
+  margin-top: 10px;
 }
 
 .redirect a {

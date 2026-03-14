@@ -1,37 +1,26 @@
-<div class="chat-window">
+<div class="chat-window" [class.fullscreen]="isFullscreen">
 
-<!-- Seletor de instância -->
-<div class="instance-select">
-  <label for="instancia">Instância:</label>
-  <select id="instancia" [(ngModel)]="instanciaSelecionada" (change)="trocaInstancia()">
-    <option *ngFor="let inst of instancias" [value]="inst.name">
-      {{ inst.name }} - ({{ inst.number }})
-    </option>
-  </select>
-  <button (click)="adicionarInstancia()" class="add-instance-btn">➕</button>
-</div>
-
-
-  <div class="header">
-    Painel WhatsApp
+  <!-- Seletor de instância -->
+  <div class="instance-select">
+    <label for="instancia">Instância:</label>
+    <select id="instancia" [(ngModel)]="instanciaSelecionada" (change)="trocaInstancia()">
+      <option *ngFor="let inst of instancias" [value]="inst.name">
+        {{ inst.name }} 
+      </option>
+    </select>
+    <button (click)="adicionarInstancia()" class="add-instance-btn">➕</button>
   </div>
+
+  <div class="header">Painel WhatsApp</div>
 
   <!-- Top Buttons -->
   <div class="top-buttons">
-        <button routerLink="/me">me</button>
-    <button routerLink="/config">⚙️ Config</button>
+    <button (click)="toggleChatFullscreen()" title="Tela cheia">🖥️</button>
+    <button routerLink="/config">📝 Mensagens Prontas</button>
     <button (click)="prepararCampanhateste()">📢 Campanha</button>
     <button routerLink="/loginuser">loginuser</button>
-    <button routerLink="/contatos">👥 Contatos</button>
-        <button routerLink="/login">Login</button>
-        <button routerLink="/cadastro">Cadastro</button>
+    <button routerLink="/cadastro">Cadastro</button>
     <button (click)="prepararContato()">➕ Contato</button>
-    <button routerLink="/canal">Canais</button>
-    
-    
- 
-      
-        
   </div>
 
   <!-- Lista de conversas -->
@@ -57,7 +46,8 @@
 
   <!-- Caixa de mensagem -->
   <div class="composer-wrapper" *ngIf="selectedConversation">
-    <form class="composer" (ngSubmit)="onSendMessage()">
+    <!-- ALTERAÇÃO: usa nSendMessage() -->
+    <form class="composer" (ngSubmit)="nSendMessage()">
       <input
         type="text"
         placeholder="Digite uma mensagem..."
@@ -76,27 +66,22 @@
     </app-msgeprontafilhos>
   </div>
 
-</div> <!-- ← fecha aqui o .chat-window -->
+</div> <!-- fecha .chat-window -->
 
 <!-- Modal Adicionar Contato -->
 <div *ngIf="mostraFormularioContato" class="modal show">
   <div class="modal-backdrop" (click)="mostraFormularioContato = false"></div>
   <div class="add-contact">
     <h3>Adicionar Contato</h3>
-
-    <!-- MOSTRAR INSTÂNCIA SELECIONADA -->
     <p><strong>Instância:</strong> {{ instanciaSelecionada }}</p>
-
     <input [(ngModel)]="novoNome" placeholder="Nome" name="nome" />
     <input [(ngModel)]="novoNumero" placeholder="Número com DDD (ex: 61999999999)" name="numero" />
-
     <div class="modal-buttons">
       <button (click)="adicionarContato()">Salvar</button>
       <button (click)="mostraFormularioContato = false">Fechar</button>
     </div>
   </div>
 </div>
-
 
 <!-- Modal Campanha -->
 <div class="modal" [class.show]="modalAberto">

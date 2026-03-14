@@ -2,30 +2,33 @@
 .chat-window {
   max-width: 450px;
   margin: 0 auto;
-  background: #f8fafc;
-  border-radius: 12px;
+  background: #f9fafb;
+  border-radius: 16px;
   display: flex;
   flex-direction: column;
   height: 95vh;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+  box-shadow: 0 6px 24px rgba(0,0,0,0.12);
   overflow: hidden;
   border: 1px solid #e2e8f0;
+  font-family: 'Inter', sans-serif;
 }
 
 /* HEADER */
 .header {
-  background: #22c55e; /* verde */
+  background: #22c55e;
   color: white;
-  font-size: 18px;
-  font-weight: 600;
-  padding: 14px;
+  font-size: 20px;
+  font-weight: 700;
+  padding: 16px;
   text-align: center;
   box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  letter-spacing: 0.5px;
 }
 
 /* TOP BUTTONS */
 .top-buttons {
   display: flex;
+  flex-wrap: wrap;
   gap: 6px;
   padding: 10px;
   background: #fff;
@@ -33,31 +36,32 @@
 }
 
 .top-buttons button {
-  flex: 1;
-  padding: 8px;
-  border-radius: 8px;
+  flex: 1 1 30%;
+  padding: 8px 10px;
+  border-radius: 12px;
   border: 1px solid #cfd6de;
-  background: #f0fdf4; /* verde suave */
+  background: #f0fdf4;
   cursor: pointer;
   font-weight: 500;
-  transition: .2s;
+  transition: all 0.25s ease;
 }
 
 .top-buttons button:hover {
   background: #22c55e;
   color: white;
-  border-color: #22c55e;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
 
+/* LISTA DE CONVERSAS */
 .conversations-list {
-  padding: 10px;
-  border-bottom: 1px solid #dbe2ea;
+  padding: 12px;
   background: #fff;
-
-  max-height: 30vh; /* ou outro valor que faça sentido */
-  overflow-y: auto;  /* ativa scroll quando a lista passar do limite */
+  max-height: 28vh;
+  overflow-y: auto;
+  border-bottom: 1px solid #dbe2ea;
+  scroll-behavior: smooth;
 }
-
 
 .conversations-list ul {
   margin: 0;
@@ -66,48 +70,51 @@
 }
 
 .conversation-item {
-  padding: 10px;
-  border-radius: 10px;
-  transition: .2s;
+  padding: 12px;
+  border-radius: 14px;
   cursor: pointer;
+  transition: 0.2s;
 }
 
 .conversation-item:hover {
-  background: #dcfce7; /* verde muito claro */
+  background: #dcfce7;
+  transform: scale(1.02);
 }
 
 /* MENSAGENS */
 .messages {
   flex: 1;
   overflow-y: auto;
-  padding: 12px;
+  padding: 14px;
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 8px;
 }
 
 .message-me {
   align-self: flex-end;
   background: #22c55e;
   color: white;
-  padding: 10px 14px;
+  padding: 12px 16px;
   border-radius: 18px 18px 0 18px;
   max-width: 75%;
+  animation: fadeIn 0.3s ease-in-out;
 }
 
 .message-them {
   align-self: flex-start;
   background: #e5e7eb;
   color: #111;
-  padding: 10px 14px;
+  padding: 12px 16px;
   border-radius: 18px 18px 18px 0;
   max-width: 75%;
+  animation: fadeIn 0.3s ease-in-out;
 }
 
 .message-content small {
   display: block;
   font-size: 10px;
-  opacity: .7;
+  opacity: 0.7;
   margin-top: 2px;
 }
 
@@ -121,39 +128,50 @@
 
 .composer input {
   flex: 1;
-  padding: 12px;
-  border-radius: 22px;
+  padding: 12px 14px;
+  border-radius: 24px;
   border: 1px solid #cfd6de;
   outline: none;
+  transition: border-color 0.25s;
+}
+
+.composer input:focus {
+  border-color: #22c55e;
+  box-shadow: 0 0 8px rgba(34,197,94,0.2);
 }
 
 .composer button {
-  margin-left: 6px;
+  margin-left: 8px;
   padding: 12px 18px;
   border-radius: 50%;
   border: none;
   background: #22c55e;
   color: white;
-  font-size: 14px;
+  font-size: 16px;
   cursor: pointer;
+  transition: all 0.2s;
+}
+
+.composer button:hover {
+  transform: scale(1.1);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
 }
 
 /* -------------------- MODAIS -------------------- */
-
-/* BACKDROP */
 .modal-backdrop {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0,0,0,0.35);
+  backdrop-filter: blur(2px);
+  background: rgba(0,0,0,0.25);
   z-index: 999;
+  transition: all 0.3s ease;
 }
 
-/* MODAL BASE */
 .modal {
-  display: none; /* oculto por padrão */
+  display: none;
   position: fixed;
   top: 0;
   left: 0;
@@ -166,104 +184,100 @@
   display: block;
 }
 
-/* CONTEÚDO MODAL */
 .modal-content,
 .add-contact {
-  background: #f0fdf4; /* verde suave */
-  padding: 25px;
-  border-radius: 16px;
+  background: #f0fdf4;
+  padding: 28px 24px;
+  border-radius: 20px;
   position: fixed;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%) scale(0.95);
   z-index: 1001;
   width: 380px;
   max-width: 90%;
-  box-shadow: 0 8px 30px rgba(0,0,0,0.25);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.25);
+  transition: transform 0.3s ease;
 }
 
-/* BOTÃO FECHAR */
+.modal.show .modal-content,
+.modal.show .add-contact {
+  transform: translate(-50%, -50%) scale(1);
+}
+
 .modal-content .close {
   float: right;
   font-size: 26px;
   font-weight: 600;
   cursor: pointer;
   color: #22c55e;
+  transition: color 0.2s;
 }
 
-/* INPUTS MODAIS */
+.modal-content .close:hover {
+  color: #16a34a;
+}
+
 .add-contact input,
 .modal-content input,
 .modal-content textarea {
   width: 100%;
-  padding: 10px;
-  margin-top: 8px;
-  margin-bottom: 12px;
-  border-radius: 8px;
+  padding: 12px;
+  margin-top: 10px;
+  margin-bottom: 14px;
+  border-radius: 10px;
   border: 1px solid #cfd6de;
   outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
 }
 
-/* BOTÕES DENTRO DO MODAL */
-.modal-buttons,
-.modal-content button {
-  display: flex;
-  justify-content: flex-end;
-  gap: 8px;
-  margin-top: 10px;
+.add-contact input:focus,
+.modal-content input:focus,
+.modal-content textarea:focus {
+  border-color: #22c55e;
+  box-shadow: 0 0 8px rgba(34,197,94,0.2);
 }
 
 .modal-buttons button,
 .modal-content button {
   padding: 10px 14px;
-  border-radius: 10px;
+  border-radius: 12px;
   border: none;
   background: #22c55e;
   color: white;
   cursor: pointer;
-  font-weight: 500;
-  transition: 0.2s;
+  font-weight: 600;
+  transition: all 0.25s ease;
 }
 
 .modal-buttons button:hover,
 .modal-content button:hover {
-  background: #16a34a; /* verde escuro ao passar */
+  background: #16a34a;
+  transform: translateY(-2px);
 }
 
-/* LISTA DENTRO DO MODAL */
-.modal-content ul {
-  padding-left: 15px;
-      overflow-y: auto;  /* ativa scroll vertical */
-}
-
-.modal-content ul li {
-  margin-bottom: 6px;
-  display: flex;
-  justify-content: space-between;
-
-  align-items: center;
-}
-
+/* INSTANCE SELECT */
 .instance-select {
   display: flex;
   align-items: center;
   gap: 8px;
-  margin-bottom: 10px;
+  margin-bottom: 12px;
 }
 
 .instance-select select {
   flex: 1;
-  padding: 5px 8px;
-  border-radius: 6px;
-  border: 1px solid #ccc;
+  padding: 6px 10px;
+  border-radius: 8px;
+  border: 1px solid #cfd6de;
+  outline: none;
 }
 
 .add-instance-btn {
   background-color: #4CAF50;
   color: white;
   border: none;
-  border-radius: 6px;
-  padding: 6px 10px;
+  border-radius: 8px;
+  padding: 6px 12px;
   cursor: pointer;
   transition: 0.2s;
 }
@@ -272,3 +286,40 @@
   background-color: #45a049;
 }
 
+/* SCROLLBAR CUSTOM */
+.conversations-list::-webkit-scrollbar,
+.messages::-webkit-scrollbar,
+.modal-content ul::-webkit-scrollbar {
+  width: 6px;
+}
+
+.conversations-list::-webkit-scrollbar-thumb,
+.messages::-webkit-scrollbar-thumb,
+.modal-content ul::-webkit-scrollbar-thumb {
+  background-color: rgba(34,197,94,0.5);
+  border-radius: 3px;
+}
+
+.conversations-list::-webkit-scrollbar-track,
+.messages::-webkit-scrollbar-track,
+.modal-content ul::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* ANIMAÇÕES */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* RESPONSIVIDADE */
+@media (max-width: 480px) {
+  .chat-window {
+    width: 100%;
+    border-radius: 0;
+  }
+
+  .top-buttons button {
+    flex: 1 1 45%;
+  }
+}

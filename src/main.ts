@@ -2,17 +2,16 @@ import { bootstrapApplication } from '@angular/platform-browser';
 import { App } from './app/app';
 import { appConfig } from './app/app.config';
 import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
-import { JwtInterceptor } from './app/services/jwt-interceptor'; // ajuste o caminho
+import { AuthInterceptor } from './app/services/auth-interceptor';
 
-// adiciona o interceptor dentro do appConfig.providers
 const configWithInterceptor = {
   ...appConfig,
   providers: [
-    ...(appConfig.providers || []), // mantém o que já tinha
+    ...(appConfig.providers || []),
     provideHttpClient(withInterceptorsFromDi()), // habilita interceptors
-    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true } // registra JWT
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true } // registra seu interceptor
   ]
 };
 
 bootstrapApplication(App, configWithInterceptor)
-  .catch((err) => console.error(err));
+  .catch(err => console.error(err));

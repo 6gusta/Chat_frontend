@@ -272,3 +272,15 @@
   background-color: #45a049;
 }
 
+
+.chat-window.fullscreen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  max-width: none;
+  margin: 0;
+  border-radius: 0;
+  z-index: 9999;
+}

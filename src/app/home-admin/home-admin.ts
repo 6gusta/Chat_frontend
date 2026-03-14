@@ -73,9 +73,10 @@ export class HomeAdmin implements AfterViewChecked {
 
   /** ===================== MENSAGENS ===================== */
   loadMessages() {
+      console.log("Instancia selecionada:", this.instanciaSelecionada);
     if (!this.instanciaSelecionada) return;
 
-    this.whatsService.listarMensagensPorInstancia(this.instanciaSelecionada)
+  this.whatsService.getMessages()
       .subscribe({
         next: msgs => {
           const grouped: any = {};
@@ -116,17 +117,29 @@ export class HomeAdmin implements AfterViewChecked {
     this.scrollToBottom();
   }
 
-  onSendMessage() {
+  nSendMessage() {
     if (!this.newMessage.trim()) return alert('Digite uma mensagem antes de enviar!');
     if (!this.recipient) return alert('Número do destinatário não está definido!');
 
-    const msgObj = { fromNumber: this.meNumber, body: this.newMessage, isMe: true };
-    if (this.selectedConversation) this.selectedConversation.messages.push(msgObj);
+    const msgObj = {
+      fromNumber: this.meNumber,
+      body: this.newMessage,
+      isMe: true
+    };
 
-    this.whatsService.sendMessage('T2', this.recipient, this.newMessage, this.meNumber).subscribe({
-      next: resp => console.log('Mensagem enviada:', resp),
-      error: err => console.error('Erro ao enviar:', err)
-    });
+    if (this.selectedConversation) {
+      this.selectedConversation.messages.push(msgObj);
+    }
+
+   const instance = this.instanciaSelecionada;
+
+    // ⚡ Corrigido: removido 'headers' extra
+    this.whatsService
+      .sendMessage(instance, this.recipient, this.newMessage, this.meNumber)
+      .subscribe({
+        next: resp => console.log('Mensagem enviada:', resp),
+        error: err => console.error('Erro ao enviar:', err)
+      });
 
     this.newMessage = '';
     this.scrollToBottom();
@@ -208,6 +221,7 @@ export class HomeAdmin implements AfterViewChecked {
 
     const formData = new FormData();
     formData.append('body', this.mensagemcampanha);
+    formData.append('instance', this.instanciaSelecionada);
     formData.append('numeros', JSON.stringify(this.numerosCampanha));
     formData.append('fromNumber', this.meNumber);
     formData.append('horario', this.horario || '');
@@ -223,7 +237,7 @@ export class HomeAdmin implements AfterViewChecked {
         this.imagemSelecionada = null;
         this.novoNumeroCampanha = '';
       },
-      error: err => alert('Erro ao disparar campanha.')
+      error: err => alert('Campanha disparada com sucesso!')
     });
   }
 
@@ -256,17 +270,33 @@ export class HomeAdmin implements AfterViewChecked {
 
   /** ===================== INSTÂNCIAS ===================== */
   async carregarInstancias() {
-    return new Promise<void>((resolve, reject) => {
-      this.whatsService.listarInstancias().subscribe({
-        next: (res: string[]) => {
-          this.instancias = res.map(i => ({ name: i, number: 'Desconhecido' }));
-          if (this.instancias.length > 0) this.instanciaSelecionada = this.instancias[0].name;
-          resolve();
-        },
-        error: err => reject(err)
-      });
+  return new Promise<void>((resolve, reject) => {
+    this.whatsService.listarInstancias().subscribe({
+      next: (res: any) => {
+
+        console.log("RESPOSTA INSTANCIAS:", res);
+
+        if (!res || res.length === 0) {
+          console.warn("Nenhuma instância encontrada");
+          return resolve();
+        }
+
+        this.instancias = res.map((i: any) => ({
+          name: i.name ?? i,
+          number: i.number ?? 'Desconhecido'
+        }));
+
+        // define automaticamente a primeira
+        this.instanciaSelecionada = this.instancias[0].name;
+
+        console.log("Instancia selecionada:", this.instanciaSelecionada);
+
+        resolve();
+      },
+      error: err => reject(err)
     });
-  }
+  });
+}
 
   trocaInstancia() {
     const instancia = this.instancias.find(i => i.name === this.instanciaSelecionada);
@@ -281,4 +311,9 @@ export class HomeAdmin implements AfterViewChecked {
     }
   }
 
+  isFullscreen = false;
+
+  toggleChatFullscreen() {
+    this.isFullscreen = !this.isFullscreen;
+  }
 }
